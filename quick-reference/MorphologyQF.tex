@@ -1,0 +1,220 @@
+% !TeX spellcheck = de_CH
+
+\documentclass[
+10pt,
+a4paper,
+oneside,
+landscape,
+plainfootsepline,
+plainfootbotline,
+]
+{scrbook}
+
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc} 
+
+
+\usepackage[T1]{fontenc}
+\usepackage{layout}
+\usepackage[paper=a4paper,landscape=true]{geometry} % ,left=2cm,right=20mm,top=10mm,bottom=10mm
+
+
+\usepackage[parfill]{parskip}
+\usepackage{setspace} 
+
+
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{bold-extra}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pifont}
+\usepackage{marvosym}
+
+%\usepackage{layout}
+%\usepackage{showframe}
+
+
+\usepackage{tabularx}
+
+\usepackage{hyperref}
+
+\definecolor{CadetBlue}		{cmyk}{1,1,0,0.29}
+
+
+\usepackage{scrpage2}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\setlength{\textwidth}{765pt}
+\setlength{\textheight}{520pt}
+\setlength{\parindent}{0pt}
+\setlength{\oddsidemargin}{-30pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\footskip}{20pt}
+\setlength{\headsep}{10pt}
+
+\marginparwidth=0pt
+
+%\ifoot[\fontsize{8pt}{1ex}\textsf{\autor}]{\fontsize{8pt}{1ex}\textsf{\autor}}
+%\cfoot[\fontsize{8pt}{1ex}\textsf{\titel}]{\fontsize{8pt}{1ex}\textsf{\titel}}
+%\ofoot[\fontsize{8pt}{1ex}\textsf{\thepage}]{\fontsize{8pt}{1ex}\textsf{\thepage}}
+\cfoot[\fontsize{8pt}{1ex}\textsf{\thepage}]{\fontsize{8pt}{1ex}\textsf{\thepage}}
+%\setfootsepline[\textwidth]{0.5pt}
+\pagestyle{scrheadings}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+\newlength{\absLinks}
+\setlength{\absLinks}{\textheight}
+\setheadwidth[]{\absLinks}
+\setfootwidth[]{\absLinks}
+
+\newlength{\bildbreiteWrap}
+\setlength{\bildbreiteWrap}{0.3\textwidth}
+
+
+\makeatletter
+\def\@makechapterhead#1{
+    {
+        \color{CadetBlue}  \LARGE \textsf \bfseries \thechapter\;\;{#1}\color{black}\normalsize\par
+        \medskip
+    }}
+    
+    
+    \def\@makeschapterhead#1{
+        {
+            \vspace*{60\p@}
+            \flushright{\fontsize{16pt}{3em}\color{CadetBlue}{\bf\textsf{\phantom{test}}\ \fontsize{75pt}{2em}\bf\textsf{\phantom{3}}}\normalsize
+                \\\color{CadetBlue} \hspace*{-30pt}\rule[7pt]{\textwidth+55pt}{0.5pt}
+                \vskip 3\p@
+                \Huge\textsf \bfseries \color{black}{#1}}
+            \vskip 50\p@  
+        }} 
+        
+        \def\section#1{
+            \refstepcounter{section}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+            \reset@font 
+            { \color{CadetBlue} \textsf \Large \bfseries
+                \strut \thesection \;\;
+                #1}
+            \color{black}\par
+        }
+         \def\subsection#1{
+            \refstepcounter{subsection}
+            \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}
+            \reset@font 
+            { \color{CadetBlue} \textsf  \bfseries
+                \strut \thesubsection \;\;
+                #1}
+            \color{black}\par
+        }
+        
+%\layout{}
+
+\newcommand{\autor}{Patrik Müller}
+\author{\autor}
+\newcommand{\titel}{Quick Reference Morphology (scipy, OpenCV, scikit-image) for Image Processing}
+\title{\titel}
+\renewcommand{\arraystretch}{2}
+\begin{document}
+
+\begin{center}
+	\flushleft{\textsf \Huge \textbf{\titel}}\hfill \small created by \autor \\
+	%    \vspace{0.3cm} 
+	\color{CadetBlue} \rule[7pt]{\textwidth}{0.5pt}
+	\color{black}
+	%    \phantom{Digital Signal Processing}
+\end{center}\vspace{-0.6cm}
+The goal of this short reference is to show the Python equivalents to the morphology functions of Matlab. As far as the author of this document knows, there is not a single package that implements all morphology functions of Matlab. For this reason, three packages are presented, each offering a wide range of morphology functions for image processing. To include these three packages, the following lines must be inserted into your code:
+
+\texttt{%
+	import scipy.ndimage.morphology\\
+	import cv2\\
+	import skimage.morphology\\
+}
+
+{\let\clearpage\relax\chapter{Structuring Elements}}
+\textbf{Hint:} All introduced packages work with normal arrays. This means a structuring element can simply be created in numpy or other packages.
+
+\texttt{
+	\begin{tabularx}{\textwidth}{l l p{4.7cm} l X}
+		\hline
+		\textbf{Matlab}           & \textbf{scipy} & \textbf{OpenCV}                                   & \textbf{scikit-image} & \textbf{Description}                                                                                                  \\\hline
+		strel(nhood)              & -              & -                                                 & -                     & Creates a flat structuring elment with specified neighborhood.                                                        \\
+		%
+		strel('diamond', r)       & -              & -                                                 & diamond(r)            & Creates a diamond-shaped structuring element with radius r.                                                           \\
+		%
+		strel('disk', r, n)       & -              & getStructuringElement( cv2.MORPH\_ELLIPSE, (m,n)) & disk(r)               & Creates a disk-shaped structuring element with radius r an n line structuring elements to approximate the disk shape. \\
+		%
+		strel('rectangle', [m,n]) & -              & getStructuringElement( cv2.MORPH\_RECT, (m,n))    & rectangle(m, n)       & Creates a rectangular structuring element of size $m\times n$.                                                        \\
+		%
+		strel('square', w)        & -              & -                                                 & square(w)             & Creates a square structuring element with width w.                                                                    \\
+		%
+		-                         & -              & getStructuringElement( cv2.MORPH\_CROSS, (m,n))   & -                     & Creates a cross-shaped structuring element with size $m\times n$.                                                     \\
+		%
+		strel('cube', w)          & -              & -                                                 & cube(w)               & Creates a 3-D cubic structuring element with width w.                                                                 \\
+		%
+		strel('cuboid', [m,n,p])  & -              & -                                                 & -                     & creates a 3-D cuboidal structuring element of size $m\times n\times p$.                                               \\
+		%
+		strel('sphere', r)        & -              & -                                                 & ball(r)               & Creates a 3-D spherical structuring element with radius r.                                                            \\
+		\hline
+	\end{tabularx}}$ $\\
+
+{\chapter{Dilation and Erosion}}
+%	For more see \href{https://docs.scipy.org/doc/numpy/reference/}{\color{blue}NumPy API} \\
+%	\textbf{Prerequisites: \texttt{import numpy as np}}\\\\
+\texttt{
+	\begin{tabularx}{\textwidth}{l p{4.8cm} p{4.6cm} l X}
+		\hline
+		\textbf{Matlab}          & \textbf{scipy}                                            & \textbf{OpenCV}                            & \textbf{scikit-image}  & \textbf{Description}                                                                                                           \\\hline
+		%
+		imdilate(img, se)        & binary\_dilation(img, se)\newline gray\_dilation(img, se) & dilate(img, se)                            & dilation(img, se)      & Dilates image img with structuring element se                                                                                  \\
+		%
+		imerode(img, se)         & binary\_erosion(img, se)\newline gray\_erosion(img, se)   & erode(img, se)                             & erosion(img, se)       & Erodes image img with structuring element se                                                                                   \\
+		%
+		imopen(img, se)          & binary\_opening(img, se)\newline gray\_opening(img, se)   & morphologyEx(img, cv2.MORPH\_OPEN, se)     & opening(img, se)       & Perform morphological opening                                                                                                  \\
+		%
+		imclose(img, se)         & binary\_closing(img, se)\newline gray\_closing(img, se)   & morphologyEx(img, cv2.MORPH\_CLOSE, se)    & closing(img, se)       & Perform morphological closing                                                                                                  \\
+		%
+		bwskel(img)              & -                                                         & -                                          & skeletionize(img)      & Erodes all objects to centerlines without changing the essential structure                                                     \\
+		%
+		bwperim(img)             &
+		-                        &                                                                                                                                                                                                                                                                  % morphological\_gradient(img, (3, 3)) & 
+		-                        &                                                                                                                                                                                                                                                                  % morphologyEx(img, cv2.MORPH\_GRADIENT, se) & 
+		-                        & Find perimeter of an binary image                                                                                                                                                                                                                                \\
+		%
+		bwhitmiss(img, se1, se2) & binary\_hit\_or\_miss(img, se1, se2)                      & morphologyEx(img, cv2.MORPH\_HITMISS, se)  & -                      & Binary hit-miss transformation in a binary image whose neighboorhoods match the shape of se1 and do not match the shape of se2 \\
+		%
+		imtophat(img, se)        & white\_tophat(img, se)                                    & morphologyEx(img, cv2.MORPH\_TOPHAT, se)   & white\_tophat(img, se) & Top-hat filtering                                                                                                              \\
+		%
+		imbothat(img, se)        & black\_tophat(img, se)                                    & morphologyEx(img, cv2.MORPH\_BLACKHAT, se) & black\_tophat(img, se) & Bottom-hat filtering
+		\\\hline
+	\end{tabularx}}$ $\\
+
+{\chapter{Morphological Reconstruction}}
+\texttt{
+	\begin{tabularx}{\textwidth}{l p{4.8cm} p{4.6cm} l X}
+		\hline
+		\textbf{Matlab}         & \textbf{scipy}       & \textbf{OpenCV}    & \textbf{scikit-image}    & \textbf{Description}                                                                                                                                \\\hline
+		%
+		imreconstruct(mrk, msk) & -                    & -                  & reconstruction(mrk, msk) & Morphological reconstruction                                                                                                                        \\
+		%
+		imregionalmax(img)      & -                    & -                  & local\_maxima(img)       & Regional maxima                                                                                                                                     \\
+		%
+		imregionalmin(img)      & -                    & -                  & local\_minima(img)       & Regional minima                                                                                                                                     \\
+		%
+		imhmax(img, H)          & -                    & -                  & h\_maxima(img, H)        & Suppresses all maxima in the intensity image img whose height is less than H                                                                        \\
+		%
+		imhmin(img, H)          & -                    & -                  & h\_minima(img, H)        & Suppresses all minima in the grayscale image img whose depth is less than H                                                                         \\
+		%
+		imimposemin(img, bw)    & -                    & -                  & -                        & Modifies the grayscale mask image img using morphological reconstruction so it only has regional minima wherever binary marker image bw is nonzero. \\
+		%
+		imfill(img, ...)        & fill\_holes(img, se) & floodFill(img, se) & flood\_fill(img, ...)    & Fill image regions and holes.                                                                                                                       \\
+		\hline
+	\end{tabularx}}$ $\\
+
+\end{document}

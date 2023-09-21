@@ -1,0 +1,366 @@
+% !TeX spellcheck = de_CH
+
+\documentclass[
+11pt,
+a4paper,
+oneside,
+plainfootsepline,
+plainfootbotline,
+]
+{scrbook}
+
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc} 
+
+
+\usepackage[T1]{fontenc}
+\usepackage{layout}
+\usepackage[paper=a4paper,left=5cm,right=20mm,top=10mm,bottom=10mm]{geometry}
+
+
+\usepackage[parfill]{parskip}
+\usepackage{setspace} 
+
+
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pifont}
+\usepackage{marvosym}
+
+
+\usepackage{tabularx}
+
+
+\definecolor{CadetBlue}		{cmyk}{1,1,0,0.29}
+
+
+\usepackage{scrpage2}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\ifoot[\fontsize{8pt}{1ex}\textsf{\autor}]{\fontsize{8pt}{1ex}\textsf{\autor}}
+\cfoot[\fontsize{8pt}{1ex}\textsf{\titel}]{\fontsize{8pt}{1ex}\textsf{\titel}}
+\ofoot[\fontsize{8pt}{1ex}\textsf{\thepage}]{\fontsize{8pt}{1ex}\textsf{\thepage}}
+\setfootsepline{0.5pt}
+\pagestyle{scrheadings}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+
+\setlength{\textwidth}{520pt}
+\setlength{\textheight}{765pt}
+\setlength{\parindent}{0pt}
+\setlength{\oddsidemargin}{-30pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\footskip}{20pt}
+\setlength{\headsep}{10pt}
+
+\marginparwidth=0pt
+
+\newlength{\absLinks}
+\setlength{\absLinks}{\textwidth}
+\setheadwidth[]{\absLinks}
+\setfootwidth[]{\absLinks}
+
+\newlength{\bildbreiteWrap}
+\setlength{\bildbreiteWrap}{0.3\textwidth}
+
+
+\makeatletter
+\def\@makechapterhead#1{
+    {
+        \color{CadetBlue}  \LARGE \textsf \bfseries \thechapter\;\;{#1}\color{black}\normalsize\par
+        \medskip
+    }}
+    
+    
+    \def\@makeschapterhead#1{
+        {
+            \vspace*{60\p@}
+            \flushright{\fontsize{16pt}{3em}\color{CadetBlue}{\textbf\textsf{\phantom{test}}\ \fontsize{75pt}{2em}\textbf\textsf{\phantom{3}}}\normalsize
+                \\\color{CadetBlue} \hspace*{-30pt}\rule[7pt]{\textwidth+55pt}{0.5pt}
+                \vskip 3\p@
+                \Huge\textsf \bfseries \color{black}{#1}}
+            \vskip 50\p@  
+        }} 
+        
+        \def\section#1{
+            \refstepcounter{section}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+            \reset@font 
+            { \color{CadetBlue} \textsf \Large \bfseries
+                \strut \thesection \;\;
+                #1}
+            \color{black}\par
+        }
+        
+
+\newcommand{\autor}{Tabea Méndez, Mathias Hunold}
+\author{\autor}
+\newcommand{\titel}{Quick Reference Matlab}
+\title{\titel}
+
+\begin{document}
+
+\begin{center}
+    \flushright{\textsf \Huge \textbf{\titel} }\\
+    \vspace{0.3cm}
+    \color{CadetBlue} \rule[7pt]{\textwidth}{0.5pt}
+    \color{black}
+    \phantom{Digital Signal Processing}
+\end{center}
+
+{\let\clearpage\relax\chapter{Matrizen und Vektoren}}
+\section{Eingabe}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{M = [0 1 0; }           & Eingabe einer Matrize                                     \\
+        \texttt{\phantom{M = } 1 0 2; } &                                                           \\
+        \texttt{\phantom{M = } 1 2 3]}  &                                                           \\
+        \texttt{z = [1 2 3 4]}          & Zeilenvektor                                              \\
+        \texttt{s = [1 2 3 4]'}         & Spaltenvektor                                             \\
+        \texttt{x = 5:12}               & Erzeugt den Vektor \texttt{x = [5 6 7 ... 11 12]}         \\
+        \texttt{x = 0:0.1:1}            & Erzeugt den Vektor \texttt{x = [0.0 0.1 0.2 ... 0.9 1.0]} \\
+        \texttt{x = 1:-0.1:0}           & Erzeugt den Vektor \texttt{x = [1.0 0.9 0.8 ... 0.1 0.0]} \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Zugriff auf Matrixelemente}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{M(i,j)}    & Element aus Zeile i und Spalte j                                       \\
+        \texttt{M(i,:)}    & Alle Elemente der Zeile i                                              \\
+        \texttt{M(:,j)}    & Alle Elemente der Spalte j                                             \\
+        \texttt{M(L)}      & Alle Elemente aus M, die in der Matrix L den logischen Wert true haben \\
+        \texttt{M(M>a)=b}  & Setzt alle Elemente die grösser als a sind auf b                       \\
+        \texttt{I=find(L)} & Index aller Elemente die in der Matrix L den logischen Wert true haben \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Operationen}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{A+B}     & Matrizen-Addition                                 \\
+        \texttt{A-B}     & Matrizen-Subtraktion                              \\
+        \texttt{A*B}     & Matrizen-Multiplikation                           \\
+        \texttt{A.*B}    & elementweise Multiplikation: $a_{ij}\cdot b_{ij}$ \\
+        \texttt{A/B}     & Matrizen-Division: $A\cdot B^{-1}$                \\
+        \texttt{A./B}    & elementweise Division: $a_{ij}/b_{ij}$            \\
+        \texttt{A'}      & Matrizen-Transponierung und Konjugation           \\
+        \texttt{A.'}     & Matrizen-Transponierung (ohne Konjugation)        \\
+        \texttt{A.\^{}x} & elementweise Potenzieren: $a_{ij}^x$              \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Spezielle Matrizen}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{Z = zeros(m,n)}  & Definition einer $m\times n$-Matrix mit lauter Nullen                                                            \\
+        \texttt{O = ones(m,n)}   & Definition einer $m\times n$-Matrix mit lauter Einsen                                                            \\
+        \texttt{N = NaN(m,n)}    & Definition einer $m\times n$-Matrix mit lauter NaN's (NaN = Not-a-Number)                                        \\
+        \texttt{E = eye(n)}      & Definition einer $n\times n$-Einheitsmatrix                                                                      \\
+        \texttt{R = rand(m,n)}   & Definition einer $n\times n$-Matrix mit gleichverteilten Zufallszahlen zwischen 0 und 1                          \\
+        \texttt{RN = randn(m,n)} & Definition einer $n\times n$-Matrix mit normalverteilten Zufallszahlen mit Mittelwert 0 und Standardabweichung 1 \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\newpage
+{\let\clearpage\relax\chapter{Funktionen}}
+\section{Matrizen-Dimensionen und Datentypen}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{[m,n] = size(A)} & Anzahl Zeilen m und Spalten n einer Matrix                            \\
+        \texttt{s = size(A)}     & Grössen aller Dimensionen der Matrix A mit beliebiger Dimensionalität \\
+        \texttt{l = length(A)}   & Länge einer Matrix bzw. eines Vektors (grösste Dimension)             \\
+        \texttt{B = double(A)}   & Matrix A zu double typecasten                                         \\
+        \texttt{B = single(A)}   & Matrix A zu single (32-Bit floating point) typecasten                 \\
+        \texttt{isa(A,'double')} & Datentyp von A überprüfen                                             \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Elementare Mathematische Funktionen}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{y = sin(x),\newline y = cos(x),\newline y = tan(x)}
+                              & trigonometrische Funktionen mit dem Argument x in Radiant             \\
+        \texttt{y = asin(x)}%,\newline y = acos(x),\newline y = atan(x)} 
+                              & inverse trigonometrische Funktionen mit dem Rückgabewert y in Radiant \\
+        \texttt{y = sind(x)}%,\newline y = cosd(x),\newline y = tand(x)} 
+                              & trigonometrische Funktionen mit dem Argument x in Grad                \\
+        \texttt{y = asind(x)}%,\newline y = acosd(x),\newline y = atand(x)} 
+                              & inverse trigonometrische Funktionen mit dem Rückgabewert y in Grad    \\
+        \texttt{y = exp(x)}   & Exponentialfunktion                                                   \\
+        \texttt{y = log(x)}   & naturlicher Logarithmus                                               \\
+        \texttt{y = log10(x)} & Logarithmus zur Basis 10                                              \\
+        \texttt{y = sqrt(x)}  & quadratische Wurzel                                                   \\
+        \texttt{y = abs(x)}   & Absolutwert                                                           \\
+        \texttt{y = round(x)} & Rundung auf die nächste ganze Zahl                                    \\
+        \texttt{y = floor(x)} & Abrunden auf die nächst kleinere ganze Zahl                           \\
+        \texttt{y = ceil(x)}  & Aufrunden zur nächst grössere ganze Zahl                              \\
+        \texttt{y = conj(x)}  & Konjugiert Komplexe Zahl von x                                        \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Funktionen zur Berechnung von Kennwerten}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{y = sum(x)}  & Summe der Elemente eines Arrays              \\
+        \texttt{ma = max(x)} & grösster Wert in einem Arrays                \\
+        \texttt{mi = min(x)} & kleinster Wert in einem Arrays               \\
+        \texttt{m = mean(x)} & Mittelwert der Elemente eines Arrays         \\
+        \texttt{s = std(x)}  & Standardabweichung der Elemente eines Arrays \\
+        \texttt{v = var(x)}  & Varianz der Elemente eines Arrays            \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Zeitmessung}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{t = tic;}      & Start Zeitmessung                                    \\
+        \texttt{time = toc(t)} & Zeit (time) in Sekunden seit t mit tic erzeugt wurde \\
+    \end{tabularx}
+\end{onehalfspace}
+\newpage
+\section{Graphische Funktionen}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{figure(n)}            & setzt das Plot-Fenster mit Nummer n als aktiv oder erzeugt ein neues Fenster mit dieser Nummer                                                                    \\
+        \texttt{plot(x,y,'-o')}       & zeichnet die Werte des Vektors y (Ordinate) gegen diejenige des Vektors x (Abszisse), wobei die Punkte linear interpoliert werden und mit Kreisen markiert werden \\
+        \texttt{plot(x1,y1,x2,y2)}    & zeichnet zwei Funktionen in die selbe Graphik                                                                                                                     \\
+        \texttt{subplot(1,2,1) }      & Plot auf linker Seite des Feldes (1 Zeile, 2 Spalten, 1. Graph)                                                                                                   \\
+        \texttt{histogram(x)}         & Erzeugung eines Histogramm-Plots                                                                                                                                  \\
+        \texttt{stem(x)}              & Plotten von diskreten Datensequenzen                                                                                                                              \\
+        \texttt{hold on}              & Einfrieren der aktuellen Graphik, um zusätzliche Graphen eintragen zu können                                                                                      \\
+        \texttt{hold off}             & Einfrierung aufheben                                                                                                                                              \\
+        \texttt{axis([xs,xe,ys,ye]) } & Festlegung der Skalierung der x- und der y-Achse                                                                                                                  \\
+        \texttt{title('Text')}        & Titel für die Graphik                                                                                                                                             \\
+        \texttt{xlabel('Text')}       & Beschriftung der x-Achse (Abszisse)                                                                                                                               \\
+        \texttt{ylabel('Text')}       & Beschriftung der y-Achse (Ordinate)                                                                                                                               \\
+    \end{tabularx}
+\end{onehalfspace}
+
+{\let\clearpage\relax\chapter{Signale}}
+\section{Spektrum}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{y = fft(x)}       & Berechnung der diskreten Fourier-Transformation von x                        \\
+        \texttt{x = ifft(y)}      & Berechnung der inversen diskreten Fourier-Transformation von y               \\
+        \texttt{y = fftshift(x)}  & Verschiebung der ''DC-Frequenz'' (Frequenz Null) in die Mitte des Spektrums. \\
+        \texttt{x = ifftshift(y)} & Invertierung der Verschiebung von fftshift().                                \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Filterung}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{3.5cm}X}
+        \texttt{w = conv(u,v)}     & Berechnung der Faltung von zwei Vektoren u und v                     \\
+        \texttt{y = filter(b,a,x)} & Filterung des Eingangssignals x mit dem Filter:                      \\[0.1cm]&  $H(z) = \dfrac{b(1) + b(2)z^{-1} + ...  + b(n_b+1)z^{-n_b}}{a(1) + a(2)z^{-1} + ...  + a(n_a+1)z^{-n_a}}$\\
+        \texttt{y = cumsum(x)}     & Berechnung der kumulativen Summe: $y(n) = \sum\limits_{i=1}^{n}x(n)$ \\
+    \end{tabularx}
+\end{onehalfspace}
+
+
+
+{\let\clearpage\relax\chapter{Bilder}}
+\section{Laden und Speichern}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{4.2cm}X}
+        \texttt{I = imread('f')} & Bild mit dem Filenamen 'f' einlesen \\
+        \texttt{imwrite(I,'f')}  & Bild I im File 'f' speichern        \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Anzeigen}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{4.2cm}X}
+        \texttt{imshow(I)}         & Bild I anzeigen                                                             \\
+        \texttt{image(I)}          & Bild I anzeigen. Verwendet eine colormap zum Anzeigen von Graubildern.      \\
+        \texttt{imagesc(I)}        & Skaliert die Bilddaten I zur vollständigen Farbpalette der aktiven colormap \\
+        \texttt{colormap(m)}       & Jede Reihe in m ist ein RGB-Vektor, welcher eine Farbe definiert.           \\
+        \texttt{colormap('gray')}  & erzeugt und aktiviert eine lineare Graustuffen colormap                     \\
+        \texttt{I = rgb2gray(RGB)} & konvertiert das Farbbild RGB zum Graubild I                                 \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Filterung}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{4.2cm}X}
+        \texttt{C = conv2(A,B)}        & zweidimensionale Faltung mit A und B              \\
+        \texttt{F = filter2(h,I)}      & Bild I mit der zweidimensionalen Matrix h filtern \\
+        \texttt{F = medfilt2(I,[m n])} & Medianfilter mit m mal n Nachbarschaft            \\
+    \end{tabularx}
+\end{onehalfspace}
+
+\section{Spektrum}
+\begin{onehalfspace}
+    \begin{tabularx}{\textwidth}{p{4.2cm}X}
+        \texttt{F = fft2(I)}  & 2-dimensionale digitale Fouriertransformation         \\
+        \texttt{I = ifft2(F)} & inverse 2-dimensionale digitale Fouriertransformation \\
+    \end{tabularx}
+\end{onehalfspace}
+
+
+
+{\let\clearpage\relax\chapter{Kontrollstrukturen}}
+\section{for-Schleife}
+\begin{minipage}{0.5\textwidth}
+    \texttt{for variable = <expression>\\
+        \hspace*{1cm}<statements>\\
+        end}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \texttt{for i = 1:10\\
+        \hspace*{1cm}y = y + x(i);\\
+        end}
+\end{minipage}
+
+\section{while-Schleife}
+\begin{minipage}{0.5\textwidth}
+    \texttt{while <expression>\\
+        \hspace*{1cm}<statements>\\
+        end}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \texttt{while i<10\\
+        \hspace*{1cm} i = i*2;\\
+        end}
+\end{minipage}
+
+\section{If-Anweisung}
+\begin{minipage}{0.5\textwidth}
+    \texttt{if <expression>\\
+        \hspace*{1cm}<statements>\\
+        elseif <expression>\\
+        \hspace*{1cm}<statements>\\
+        else\\
+        \hspace*{1cm}<statements>\\
+        end}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \texttt{if i>=4\\
+        \hspace*{1cm}y = 1;\\
+        elseif i<-2\\
+        \hspace*{1cm}y = -1;\\
+        else\\
+        \hspace*{1cm}y = 0;\\
+        end}
+\end{minipage}
+
+\section{Eigene Funktionen}
+\begin{minipage}{0.5\textwidth}
+    \texttt{function <outputs>=<name>(<inputs>)\\
+        \hspace*{1cm}<statements>\\
+        end}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \texttt{function c = myMultiplication(a,b)\\
+        \hspace*{1cm}c =  a*b;\\
+        end}
+\end{minipage}
+
+
+\end{document}

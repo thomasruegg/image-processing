@@ -1,0 +1,419 @@
+% !TeX spellcheck = de_CH
+
+\documentclass[
+11pt,
+a4paper,
+oneside,
+plainfootsepline,
+plainfootbotline,
+]
+{scrbook}
+
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc} 
+
+
+\usepackage[T1]{fontenc}
+\usepackage{layout}
+\usepackage[paper=a4paper,left=5cm,right=20mm,top=10mm,bottom=10mm]{geometry}
+
+
+\usepackage[parfill]{parskip}
+\usepackage{setspace} 
+
+
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pifont}
+\usepackage{marvosym}
+
+
+\usepackage{tabularx}
+
+\usepackage{hyperref}
+
+\definecolor{CadetBlue}		{cmyk}{1,1,0,0.29}
+
+
+\usepackage{scrpage2}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\ifoot[\fontsize{8pt}{1ex}\textsf{\autor}]{\fontsize{8pt}{1ex}\textsf{\autor}}
+\cfoot[\fontsize{8pt}{1ex}\textsf{\titel}]{\fontsize{8pt}{1ex}\textsf{\titel}}
+\ofoot[\fontsize{8pt}{1ex}\textsf{\thepage}]{\fontsize{8pt}{1ex}\textsf{\thepage}}
+\setfootsepline{0.5pt}
+\pagestyle{scrheadings}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+
+\setlength{\textwidth}{520pt}
+\setlength{\textheight}{765pt}
+\setlength{\parindent}{0pt}
+\setlength{\oddsidemargin}{-30pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\footskip}{20pt}
+\setlength{\headsep}{10pt}
+
+\marginparwidth=0pt
+
+\newlength{\absLinks}
+\setlength{\absLinks}{\textwidth}
+\setheadwidth[]{\absLinks}
+\setfootwidth[]{\absLinks}
+
+\newlength{\bildbreiteWrap}
+\setlength{\bildbreiteWrap}{0.3\textwidth}
+
+
+\makeatletter
+\def\@makechapterhead#1{
+    {
+        \color{CadetBlue}  \LARGE \textsf \bfseries \thechapter\;\;{#1}\color{black}\normalsize\par
+        \medskip
+    }}
+    
+    
+    \def\@makeschapterhead#1{
+        {
+            \vspace*{60\p@}
+            \flushright{\fontsize{16pt}{3em}\color{CadetBlue}{\bf\textsf{\phantom{test}}\ \fontsize{75pt}{2em}\bf\textsf{\phantom{3}}}\normalsize
+                \\\color{CadetBlue} \hspace*{-30pt}\rule[7pt]{\textwidth+55pt}{0.5pt}
+                \vskip 3\p@
+                \Huge\textsf \bfseries \color{black}{#1}}
+            \vskip 50\p@  
+        }} 
+        
+        \def\section#1{
+            \refstepcounter{section}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+            \reset@font 
+            { \color{CadetBlue} \textsf \Large \bfseries
+                \strut \thesection \;\;
+                #1}
+            \color{black}\par
+        }
+         \def\subsection#1{
+            \refstepcounter{subsection}
+            \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}
+            \reset@font 
+            { \color{CadetBlue} \textsf  \bfseries
+                \strut \thesubsection \;\;
+                #1}
+            \color{black}\par
+        }
+        
+
+\newcommand{\autor}{Patrik Müller}
+\author{\autor}
+\newcommand{\titel}{Quick Reference Python (NumPy, Matplotlib, OpenCV) for Image Processing}
+\title{\titel}
+
+\begin{document}
+    
+\begin{center}
+    \flushright{\textsf \Huge \textbf{\titel} }\\
+    \vspace{0.3cm} 
+    \color{CadetBlue} \rule[7pt]{\textwidth}{0.5pt}
+    \color{black}
+    \phantom{Digital Signal Processing}
+\end{center}
+    
+{\let\clearpage\relax\chapter{NumPy}}
+	For more see \href{https://docs.scipy.org/doc/numpy/reference/}{\color{blue}NumPy API} \\
+	\textbf{Prerequisites: \texttt{import numpy as np}}\\\\
+	\noindent\section{Arrays}
+    \subsection{Input}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+        	
+            \texttt{x = np.array([0,1,2])} & Create a rank 1 array\\
+            \texttt{M = np.array([[0,1],} & Create a rank 2 array\\
+            \texttt{\phantom{M = np.array(} [1,0]]) } & \\
+            \texttt{x = np.arange(0,3,0.5)} & Creates array \texttt{x = [0, 0.5, 1, 1.5, 2, 2.5]}
+        \end{tabularx}
+	\end{onehalfspace} 
+	
+	\subsection{Special Matrices}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{Z = np.zeros((m,n))} & Definition of a $m\times n$ array of zeros\\
+            \texttt{O = np.ones((m,n))} & Definition of a $m\times n$ array of ones\\
+            \texttt{E = np.eye(n)} & Definition of a $n\times n$ identity matrix\\
+            \texttt{R = np.random.rand(m,n)} & Definition of a $m\times n$ array with uniformly distributed random numbers  between 0 and 1 \\
+            \texttt{R = np.random.randn(m,n)} & Definition of a $m\times n$ array with normal distributed random numbers  with mean 0 and standard deviation 1
+        \end{tabularx}
+    \end{onehalfspace} 
+    
+    \subsection{Acces to Matrix Elements}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+        	\texttt{M[i,j]} & Element at row i and column j\\
+            \texttt{M[i,:]} & All elements of row i\\
+            \texttt{M[1:3,i:j]} & Array of rows 1 to 2 and colums i to j\\
+			\texttt{M[L]}  & All elements of M, which have the logical value \texttt{True} in L \\
+			\texttt{M[x]} & Returns array of elements of M according to the values in x.\\
+        \end{tabularx}
+    \end{onehalfspace} 
+
+    \subsection{Operations}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{A+B} & Addition\\
+            \texttt{A-B} & Subtraction\\
+            \texttt{A*B} & Element-wise multiplication: $a_{ij}\cdot b_{ij}$\\
+            \texttt{np.matmul(A,B)} & Matrix product of two arrays\\
+            \texttt{A/B} & Element-wise division: $a_{ij}/b_{ij}$\\
+           	\texttt{A//B} & Element-wise integer division\\ 
+            \texttt{x = np.linalg.solve(A,b)} & Solves linear equation $Ax=b$ for x\\
+            \texttt{np.transpose(A)} & Transpose array \\
+%            \texttt{np.conj(A} & Conjugate array\\
+            \texttt{A**x} & Element-wise power: $a_{ij}^x$\\
+        \end{tabularx}
+    \end{onehalfspace} 
+    
+   	\clearpage
+    \subsection{Matrix Dimensions and Data Types}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+        	\texttt{dim = A.ndim} & Get number of dimensions of array\\
+            \texttt{(m,n) = A.shape} & Get dimensions of rank 2 array A\\
+	    \texttt{s = A.shape} & Dimension size of the array A with any number of dimensions\\
+%            \texttt{l = length(A)} & Länge einer Matrix bzw. eines Vektors (grösste Dimension)\\
+            \texttt{A.dtype='uint8'} & Cast array A to uint8\\
+        \end{tabularx}
+    \end{onehalfspace} 
+    
+    \subsection{Miscellaneous}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{A.reshape((m,n))} & Reshape array A to array with same data (number of elements must match) \\
+            \texttt{A.resize((m,n))} & Resizes array A to $m\times n$ array \\
+            \texttt{A.flatten()} & Flattens array \\
+            \texttt{A.squeeze()} & Remove singe-dimensional entries from the shape of A \\
+            \texttt{A.repeat(n,2)} & Repeat array n times along dimension 3\\
+            \texttt{B = np.expand\_dims(A,n)} & Expand the shape of an array to dimension n\\
+        \end{tabularx}
+    \end{onehalfspace} 
+    
+    
+%\newpage
+%{\let\clearpage\relax\chapter{Functions}}
+\section{Functions}
+    \subsection{Elementary Mathematical Functions}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{y = np.sin(x)\newline y = np.cos(x)\newline y = np.tan(x)} 
+            & Trigonometric functions with argument x in radiant\\
+            \texttt{y = np.arcsin(x)\newline y = np.arccos(x)\newline y = np.arctan(x)} 
+            & Inverse trigonometric functions with return value y in radiant\\
+            \texttt{y = np.exp(x)} & Exponential function\\
+            \texttt{y = np.log(x)} & Natural logarithm \\
+            \texttt{y = np.log10(x)} & Logarithm with base 10\\
+            \texttt{y = np.sqrt(x)} & Square root\\
+            \texttt{y = np.abs(x)} & Absolute value\\
+            \texttt{y = np.round(x)} & Round to the next whole number\\
+            \texttt{y = np.floor(x)} & Round to the next smaller whole number\\
+            \texttt{y = np.ceil(x)} & Round to the next bigger whole number\\
+            \texttt{y = np.conj(x)} & Conjugate complex of x\\
+            \texttt{y = np.sum(x)} & Sum of all elements in array\\
+            \texttt{y = np.cumsum(x)} & Cummulative sum over all elements in array\\
+        \end{tabularx}
+    \end{onehalfspace}    
+    
+    \subsection{Functions to calculate Characterisitic Values}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            
+            \texttt{ma = x.max()} & Biggest value in an array\\
+            \texttt{mi = x.min()} & Smallest value in an array\\
+            \texttt{m = np.mean(x)} & Mean of all elements in an array\\
+            \texttt{s = np.std(x)} & Standard deviation of all elements in an array\\
+            \texttt{v = np.var(x)} & Variance of all elements in an array\\
+        \end{tabularx}
+    \end{onehalfspace}
+    
+   	\clearpage
+    \section{Images}
+    \subsection{Spectrum}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+  	  		\texttt{X = np.fft.fft2(x)} & 2D-Fast-Fourier-Transform\\
+   			\texttt{X = np.fft.ifft2(x)} & Inverse 2D-Fast-Fourier-Transform\\
+   		\end{tabularx}
+    \end{onehalfspace}
+    
+    \subsection{Filtering}
+    To utilize signal processing, you have to import the \texttt{scipy} package!\\
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+  	  		\texttt{z = scipy.signal.\newline\phantom{z = }convolve2d(x,y)} & 2D-Convolution of x and y\\
+   			\texttt{z = scipy.signal.\newline\phantom{z = }correlate2d(x,y)} & 2D-Corellation of x and y\\
+   		\end{tabularx}
+    \end{onehalfspace}
+
+    \section{Time measurement}
+    To utilize time measurement, you have to import the \texttt{time} package!\\
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{t = time.time()} & Get current time value\\
+        \end{tabularx}
+    \end{onehalfspace}
+
+{\let\clearpage\relax\chapter{Matplotlib}}
+	For more see \href{https://matplotlib.org/api/index.html}{\color{blue}Matplotlib API} \\
+	\textbf{Prerequisites: \texttt{import matplotlib.pyplot as plt}}\\\\
+    \section{Graphical Functions}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{fig = plt.figure(n)} & Makes figure n active or creates it, if it doesn't exist\\
+            \texttt{p = plt.subplot(m,n,i)} & Makes subplot active or creates it in current figure\\
+            \texttt{f,x = plt.subplots(m,n)} & Creates figure f and a set of $m\times n$ subplots x in f\\ 
+            \texttt{plt.plot(x,y)} & Plots y versus x as lines and/or markers\\
+%            \texttt{plot(x1,y1,x2,y2)} & zeichnet zwei Funktionen in die selbe Graphik\\
+%            \texttt{subplot(1,2,1) } & Plot auf linker Seite des Feldes (1 Zeile, 2 Spalten, 1. Graph)\\
+            \texttt{plt.hist(x)} & Creates a histogramm plot\\
+%            \texttt{stem(x)} & Plotten von diskreten Datensequenzen\\
+			\texttt{plt.axis('off')} & Turn of axis lines and labels\\
+			\texttt{plt.axis([0,1,m,n])} & Makes plot axis from 0 to 1 in x-direction and m to n in y-direction\\
+            \texttt{plt.title('Text')} & Set title of active plot\\
+            \texttt{plt.xlabel('Text')} &  Set label for the x-axis\\
+            \texttt{plt.ylabel('Text')} &  Set label for the y-axis\\
+        \end{tabularx}
+    \end{onehalfspace}
+    
+    \section{Images}
+    \begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{f = plt.imread(path)} & Loads image file at location path as array\\
+            \texttt{plt.imsave(path,x)} & Save an array as image file to path\\
+            \texttt{plt.imshow(x)} & Display array as image\\
+        \end{tabularx}
+    \end{onehalfspace}
+
+\clearpage
+{\let\clearpage\relax\chapter{OpenCV}}
+	{\color{red}Be aware that OpenCV uses the BGR format for images, not RGB!}\\
+	\textbf{Prerequisites: \texttt{import cv2}}\\\\
+	\section{Load \& Display Images}
+	\begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{img = imread(path)} & Loads image from a file\\
+            \texttt{imwrite(img,path)} & Saves image at path as a file\\
+            \texttt{imshow('name',img)} & Displays image in window with label 'name'\\
+        \end{tabularx}
+    \end{onehalfspace}
+    
+    \section{Video Capture}
+	\begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{c = cv2.VideoCapture(0)} & Start video capture sequence with video device 0\\
+            \texttt{c.isOpened()} & Returns if video capture is opened\\
+            \texttt{ret, frame = c.read()} & Grabs, decodes and returns the next video frame.\\
+        \end{tabularx}
+    \end{onehalfspace}
+    
+    \section{Image Manipulation}
+	\begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{g = filter2D(f,-1,r)} & Filters an image f with kernel r with the same depth as f\\            
+        \end{tabularx}
+    \end{onehalfspace}
+    See more interesting image manipulation in \href{https://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html}{\color{blue}OpenCVs Image Filtering API}
+    
+    \section{Color Conversion}
+	\begin{onehalfspace} 
+        \begin{tabularx}{\textwidth}{p{4.8cm}X}
+            \texttt{g = cv2.cvtColor(f,\newline\phantom{g = cv2.}cv2.COLOR\_BGR2HSV)} & Converts BGR image to HSV\\  
+            \texttt{g = cv2.cvtColor(f,\newline\phantom{g = cv2.}cv2.COLOR\_HSV2BGR)} & Converts HSV image to BGR\\            
+        \end{tabularx}
+    \end{onehalfspace}
+    See more interesting color conversions in \href{https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html}{\color{blue}OpenCVs Miscellaneous Transformations API}
+		
+%	\section{Anzeigen}
+%	\begin{onehalfspace} 
+%        \begin{tabularx}{\textwidth}{p{4.2cm}X}
+%	    \texttt{imshow(I)} & Bild I anzeigen\\
+%	    \texttt{image(I)} & Bild I anzeigen. Verwendet eine colormap zum Anzeigen von Graubildern.\\
+%	    \texttt{imagesc(I)} & Skaliert die Bilddaten I zur vollständigen Farbpalette der aktiven colormap \\
+%	    \texttt{colormap(m)} & Jede Reihe in m ist ein RGB-Vektor, welcher eine Farbe definiert.\\
+%	    \texttt{colormap('gray')} & erzeugt und aktiviert eine lineare Graustuffen colormap \\
+%	    \texttt{I = rgb2gray(RGB)} &  konvertiert das Farbbild RGB zum Graubild I\\
+%        \end{tabularx}
+%    \end{onehalfspace}
+%		
+%	\section{Filterung}
+%	\begin{onehalfspace} 
+%        \begin{tabularx}{\textwidth}{p{4.2cm}X}
+%				\texttt{C = conv2(A,B)} & zweidimensionale Faltung mit A und B\\
+%						\texttt{F = filter2(h,I)} & Bild I mit der zweidimensionalen Matrix h filtern\\
+%						\texttt{F = medfilt2(I,[m n])} & Medianfilter mit m mal n Nachbarschaft\\	
+%        \end{tabularx}
+%    \end{onehalfspace}
+%		
+%		\section{Spektrum}
+%	\begin{onehalfspace} 
+%        \begin{tabularx}{\textwidth}{p{4.2cm}X}
+%						\texttt{F = fft2(I)} & 2-dimensionale digitale Fouriertransformation \\
+%						\texttt{I = ifft2(F)} & inverse 2-dimensionale digitale Fouriertransformation \\
+%        \end{tabularx}
+%    \end{onehalfspace}
+
+
+
+{\let\clearpage\relax\chapter{Control Structures}}
+    \section{\texttt{for} Loop}    
+        \begin{minipage}{0.5\textwidth}
+            \texttt{for variable in <list>:\\
+                \hspace*{1cm}<statements>}
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+            \texttt{for i in range(1, 11):\\
+                \hspace*{1cm}y = y + x[i]  } 
+        \end{minipage}
+
+    \section{\texttt{while} Loop}    
+    \begin{minipage}{0.5\textwidth}
+        \texttt{while <expression>:\\
+            \hspace*{1cm}<statements>}    
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \texttt{while i < 10:\\
+            \hspace*{1cm} i = i*2}     
+    \end{minipage}
+        
+    \section{\texttt{if} Statement}
+        \begin{minipage}{0.5\textwidth}
+            \texttt{if <expression>:\\
+                \hspace*{1cm}<statements>\\
+                elif <expression>:\\
+                \hspace*{1cm}<statements>\\
+                else:\\
+                \hspace*{1cm}<statements>}    
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+            \texttt{if i >= 4:\\
+                \hspace*{1cm}y = 1\\
+                elif i < -2:\\
+                \hspace*{1cm}y = -1\\
+                else:\\
+                \hspace*{1cm}y = 0}    
+        \end{minipage}
+	
+    \section{Self Defined Functions}
+	\begin{minipage}{0.5\textwidth}
+	    \texttt{def <name>(<inputs>):\\
+	    \hspace*{1cm}<statements>}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+	    \texttt{def myMultiplication(a,b):\\
+	    \hspace*{1cm}return a*b}
+	\end{minipage}
+        
+
+\end{document}
