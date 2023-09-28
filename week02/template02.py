@@ -11,22 +11,26 @@ import numpy as np
 N = 100  # Number of iterations
 
 # Load image
-img = plt.imread("../../images/dog.jpg")
+img = plt.imread("../images/dog.jpg")
 
 # If image is colored, transform to gray scale image
 # note: -> Color images are stored in 3D arrays. In the 3rd dimesion are the
 #          three different colors red, green, blue. Average along 3rd dimension.
+if img.ndim > 2:
+    img = np.mean(img, axis=2)
+img = np.array(img, dtype=float)
 
-
-# Copy images N times
-
+# Expand in 3rd dimension and copy image N times
+images = np.expand_dims(img, -1)
+images = np.repeat(images, N, -1)
 
 # Add noise to images
-im_noisy = img + np.std(img) * np.random.randn(*img.shape)  # Noisy image example
+im_noisy = images + np.std(img) * np.random.randn(*images.shape)
 
 # Calculate mean
-im_mean = np.zeros(img.shape)
+# im_mean = np.zeros(img.shape)
 # TODO Average over N noisy images and write result to im_mean
+im_mean = np.mean(im_noisy, -1)
 
 # Display the result
 fig, ax = plt.subplots(
@@ -34,7 +38,7 @@ fig, ax = plt.subplots(
 )
 ax[0].imshow(img, cmap="gray")
 ax[0].title.set_text("Original image")
-ax[1].imshow(im_noisy, cmap="gray")
+ax[1].imshow(im_noisy[..., 0], cmap="gray")
 ax[1].title.set_text("Noisy image")
 ax[2].imshow(im_mean, cmap="gray")
 ax[2].title.set_text("Denoised image")
