@@ -40,7 +40,9 @@ scaleLog = 255 / np.log(255) / np.log(base)
 # T = base**(r/scaleLog)-1 # inverse log
 # T = 255**(1-1/base)*r**(1/base) # nth root
 # T = (255**(1/base-1)*r)**base # nth power
-T = 255 ** (1 - gamma) * r ** gamma  # gamma
+
+
+T = 255 ** (1 - gamma) * r ** gamma  # gamma, "255 ** (1 - gamma)" = constant, can also be like 12 or whatever
 
 # T = np.zeros(256) # piecewise linear
 # for k in range(p.shape[0]-1):

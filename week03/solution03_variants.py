@@ -21,7 +21,7 @@ m = 10  # neighborhood radius
 n = 2 * m + 1  # filter size
 
 # Load image
-f = plt.imread("../../images/lions.jpg")
+f = plt.imread("../images/lions.jpg")
 
 # Tranform image to grayscale and float
 if f.ndim > 2:

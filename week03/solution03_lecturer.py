@@ -12,15 +12,13 @@ N = 2 ** 8
 graylevels = range(N)
 
 # Load image
-img = plt.imread("../../images/lions.jpg")
+img = plt.imread("../images/lions.jpg")
 
 # Tranform image to grayscale
 f = img.copy()
 if f.ndim > 2:
     f = np.mean(f, axis=2)
     
-
-
 f = f.astype(np.uint8)
 
 # Calculate normalized histogram
@@ -56,7 +54,7 @@ ax[2].title.set_text("Histogram (Probability Density Function)")
 ax[3].plot(graylevels, c)
 ax[3].title.set_text("Cumulative Probability Density Function")
 for a in ax[2:]:
-    a.grid(b=True)
+    a.grid()
     ylim = np.max(a.lines[0].get_ydata())
     a.axis([0, N - 1, 0, 1.05 * ylim])
 plt.show()
