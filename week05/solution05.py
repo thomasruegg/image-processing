@@ -18,8 +18,8 @@ m = 10  # Neighborhood radius
 n = 2 * m + 1  # Filter size
 
 # Load image
-f = plt.imread("modules/ipcv-1/images/lions.jpg")
-# f = plt.imread("../../images/lions.jpg")
+# f = plt.imread("modules/ipcv-1/images/lions.jpg")
+f = plt.imread("../images/lions.jpg")
 
 # Tranform image to grayscale and float
 if f.ndim > 2:
@@ -52,10 +52,10 @@ for rm in range(-m, m + 1):
 # g = g[m:-m,m:-m]
 
 g = g / (n * n)  # Normalize the magnitude to keep image brightness unchanged after smooting
-g = np.array(g, dtype="uint8")  # Convert floating point image to uint8
+g = np.array(g, dtype="uint8")  # Convert floating point image back to uint8
 
 # %% Unsharp masking
-sharp = g + k * (f - g)  # Apply highboost, here f-g is the
+sharp = g + k * (f - g)  # Apply highboost, here f-g is the high-pass filtered image.
 
 # %% calculate histograms, just to see that we get the additional contrast without much change in histogram shape
 sharp = np.array(sharp, dtype="uint8")

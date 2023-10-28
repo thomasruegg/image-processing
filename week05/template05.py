@@ -13,7 +13,7 @@ m = 10  # neighborhood radius
 n = 2 * m + 1  # filter size
 
 # Load image
-f = plt.imread("../../images/lions.jpg")
+f = plt.imread("../images/lions.jpg")
 
 # Tranform image to grayscale and float
 if f.ndim > 2:
@@ -21,12 +21,21 @@ if f.ndim > 2:
 f = np.array(f, dtype=float)
 
 # %% image filter
+(h, w) = np.shape(f)
+ft = np.zeros((h + 2 * m, w + 2 * m))
+ft[m:-m, m:-m] = f  # Notice that indexing in python is cyclic!
+ft = np.array(ft, dtype="uint16")
+
+# Define the smooting filter kernel
+(h2, w2) = np.shape(ft)
 
 # add black border to image
 
 # low pass filter
 g = np.zeros_like(f)
 # TODO low pass filter f -> g
+f = np.array(f, dtype="float")
+
 
 # %% Unsharp masking
 sharp = np.zeros_like(f)
