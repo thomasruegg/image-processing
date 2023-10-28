@@ -26,7 +26,7 @@ print(f'filter h = {h}')
 
 # Own implementation of the linear convolution
 glc = np.zeros(M+N-1, dtype="int")  # Initialize result vector of convolution
-for n in range(0, M+N-1):  # n = [0, 1, 2, ..., M+N-2]
+for n in range(0, M+N-1):  # end vector will be M+N-1 # n = [0, 1, 2, ..., M+N-2]
     for m in range(0, M):  # m = [0, 1, 2, ..., M-1]
         if n-m < N and n-m >= 0:  # The signal s is considered zero outside its support
             glc[n] += h[m] * s[(n - m)] 

@@ -20,9 +20,16 @@ h = np.cos(6 * np.pi * np.arange(n_h) / n_f)
 # your implementation
 fh = np.zeros(f.shape[0] + h.shape[0] - 1)
 # TODO calculate linear convolution of f and h -> fh
+glc = np.zeros(n_f+n_h-1, dtype="int")  # Initialize result vector of convolution
+for n in range(0, n_f+n_h-1):  # n = [0, 1, 2, ..., M+N-2]
+    for m in range(0, n_f):  # m = [0, 1, 2, ..., M-1]
+        if n-m < n_h and n-m >= 0:
+            glc[n] += h[m] * f[(n - m)]
+print(f'own linear conv:                    = {glc}')
 
 # use numpy function
 fh2 = np.convolve(f, h)
+print(f'numpy linear conv.:                 = {fh2}')
 
 # %% Cyclic convolution
 
