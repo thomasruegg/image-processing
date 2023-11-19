@@ -23,7 +23,7 @@ on = 200  # Standard deviation of white noise
 
 # Load image
 print("cwd = " + os.getcwd())
-f = plt.imread("../../images/elefant.jpg")
+f = plt.imread("../../images/dog.jpg")
 
 # Tranform image to grayscale and float
 if f.ndim > 2:

@@ -23,12 +23,16 @@ on = 200  # Standard deviation of white noise
 
 # Load image
 print("cwd = " + os.getcwd())
-f = plt.imread("../../images/elefant.jpg")
+f = plt.imread("../../images/dog.jpg")
 
-# Tranform image to grayscale and float
+# Transform image to grayscale and float
 if f.ndim > 2:
     f = np.mean(f, axis=2)
 f = np.array(f, dtype=float)[:-1,:-1]
+
+# Normalize the image data to be between 0 and 1
+f = (f - f.min()) / (f.max() - f.min())
+
 (M, N) = f.shape
 print(f"shape = ({M}, {N})")
 Mhalf = int(M/2)
