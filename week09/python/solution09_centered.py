@@ -13,7 +13,7 @@ import numpy as np
 from numpy.fft import fft2, ifft2
 
 # Load image
-img = plt.imread("images/dog.jpg")
+img = plt.imread("../../images/dog.jpg")
 f = img.copy()
 
 # Tranform image to grayscale and float

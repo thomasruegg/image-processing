@@ -28,6 +28,16 @@ f = np.array(f, dtype=float)
 # %% Filtering in spatial domain
 g1 = np.zeros_like(f)
 # TODO Filter f in spatial domain -> g1
+dummy = np.pad(f, (1, 1), "constant")
+g1 = dummy.copy()
+for ix in range(1, M + 1):
+    for iy in range(1, N + 1):
+        tmp = dummy[ix, iy - 1]
+        tmp += dummy[ix, iy + 1]
+        tmp += dummy[ix - 1, iy]
+        tmp += dummy[ix + 1, iy]
+        g1[ix - 1, iy - 1] = tmp / 4
+g1 = g1[1:-1, 1:-1]
 
 # %% Filtering in frequency domain
 P = 2 * M
@@ -40,7 +50,9 @@ h = np.reshape(h, (3, 3))
 
 # FFT
 # TODO calculate FFT of f
+F = fft2(f, [P, Q])
 # TODO calculate FFT of h
+H3 = fft2(h, [P, Q])
 
 # Generate frequency filter
 H = np.zeros((P, Q))
