@@ -19,9 +19,11 @@ import scipy
 D = 10  # Width of the blurring effect
 n_std = 1  # noise standard deviation
 K = n_std / 200  # wiener... smaller K -> reduces blurring but increases noise amplification
+# THE 200 SHOULD BE f_std or S_f (Power spectrum of f) BUT THAT WE CANNOT KNOW
+
 
 # Load image
-img = plt.imread("../../images/dog.jpg")
+img = plt.imread("../images/dog.jpg")
 # Tranform image to grayscale and float
 if img.ndim > 2:
     img = np.mean(img, axis=2)
