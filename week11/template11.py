@@ -26,6 +26,19 @@ def spNoise(image, prob):  # Just for fun :-)
 # TODO: Implement an adaptive local noise reduction filter
 def adaptiveMean(f, sigma_n, sz=5):
     fh = np.zeros_like(f)
+    fpad = np.pad(f, sz // 2, "constant")
+    var_n = sigma_n ** 2
+    loc_var = np.zeros_like(f)
+    loc_mean = np.zeros_like(f)
+
+    for ix in range(0, f.shape[1]):
+        for iy in range(0, f.shape[0]):
+            f_loc = fpad[iy : iy + sz, ix : ix + sz]
+            loc_var[iy, ix] = np.var(f_loc)
+            loc_mean[iy, ix] = np.mean(f_loc)
+
+    loc_var[loc_var < var_n] = var_n
+    fh = f - var_n / (loc_var + 1e-12) * (f - loc_mean)
     return fh  # return filtered image
 
 

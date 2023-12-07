@@ -82,7 +82,7 @@ if __name__ == "__main__":
     S_median_start = 3  # Start size of local area
 
     # Load image
-    f = plt.imread("../../images/dog.jpg")
+    f = plt.imread("../images/dog.jpg")
 
     # Tranform image to grayscale and float
     if f.ndim > 2:
